@@ -1,0 +1,18 @@
+.pic {
+  margin-top: 30px;
+  border: 1px solid gray;
+  max-width: 1200px;
+  width: 100%;
+}
+.ava {
+  display: flex;
+  flex-direction: row;
+}
+.img {
+  width: 50px;
+  height: 50px;
+}
+.photo img {
+  width: 1200px;
+  height: 400px;
+}

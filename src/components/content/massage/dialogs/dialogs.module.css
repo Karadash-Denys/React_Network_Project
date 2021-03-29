@@ -1,0 +1,11 @@
+.dialogs {
+  max-width: 300px;
+  display: flex;
+}
+.user {
+  color: blueviolet;
+  padding: 10px;
+}
+.user a {
+  text-decoration: none;
+}

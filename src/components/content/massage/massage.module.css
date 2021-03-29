@@ -1,0 +1,7 @@
+.massage {
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+  background-color: paleturquoise;
+  margin: 20px auto 0;
+}

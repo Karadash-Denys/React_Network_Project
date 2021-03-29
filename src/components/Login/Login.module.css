@@ -1,0 +1,17 @@
+.loginBlock{
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: hotpink;
+    height: 50vh;
+}
+
+
+.formSummuryError{
+    border: 2px solid red;
+    padding: 5px;
+    color: red;
+  }

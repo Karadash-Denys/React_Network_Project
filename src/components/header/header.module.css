@@ -1,0 +1,29 @@
+.container {
+  max-width: 1200px;
+  background-color: palegreen;
+  width: 100%;
+  margin: 50px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+.nav1 {
+  display: flex;
+}
+.nav {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.nav a {
+  text-decoration: none;
+}
+.logoUser{
+  float: right;
+}
