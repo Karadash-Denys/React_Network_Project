@@ -20,11 +20,11 @@ export const usersAPI = {
             .then(response => response.data)
     },
     followAPI(id) {
-        return instance.post(`follow/${id}`)
+        return instance.post(`follow/${id}`).then(res=>res.data.resultCode)
 
     },
     unFollowAPI(id) {
-        return instance.delete(`follow/${id}`)
+        return instance.delete(`follow/${id}`).then(res=>res.data.resultCode)
 
     }
 }

@@ -5,6 +5,7 @@ import AddNewPostsFormRedux from './Posts_Form'
 
 
 const MyPosts = (props) => {
+  
 
 
   const onClickPost = (formData) => {
