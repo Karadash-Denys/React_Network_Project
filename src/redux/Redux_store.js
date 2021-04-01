@@ -1,4 +1,4 @@
-import { combineReducers, createStore,applyMiddleware  } from 'redux'
+import { combineReducers, createStore,applyMiddleware,compose  } from 'redux'
 import authReduser from './Auth_Reduser'
 import main_page_reduser from './Main_Page_Reducer'
 import massage_page_reduser from './Massage_Page_Reduser'
@@ -17,10 +17,12 @@ let redusers = combineReducers({
     auth: authReduser,
     form: formReducer,
     app:appReduser
-}) 
+})
 
-let store = createStore(redusers,applyMiddleware(thunk))
+ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+ const store = createStore(redusers,  composeEnhancers(applyMiddleware(thunk)));
 
-window.store = store
+// let store = createStore(redusers,applyMiddleware(thunk)) // Две строки выше заменили создание, для расширения
+
 
 export default store

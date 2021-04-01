@@ -12,8 +12,8 @@ const Users = ({totalUsersCount,pageSize,users,followingInProgress,unFollow,foll
     return (
       <div className={s.users_block}>
         <Paginator
-          currentPage={currentPage}
           totalUsersCount={totalUsersCount}
+          currentPage={currentPage}
           pageSize={pageSize}
           onPageChanged={onPageChanged}
         />
