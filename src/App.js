@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import './App.css';
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import UsersContainer from './components/content/Users/Users_Container';
 import HeaderContainer from './components/header/Header_Container';
 import Login from './components/Login/Login';
@@ -22,10 +22,11 @@ const ProfileConteiner = React.lazy(() => import('./components/content/profile/P
 const MainContainer = React.lazy(() => import('./components/content/main/Main_Container'));
 
 class App extends React.Component {
-
+ 
   componentDidMount() {
     this.props.initialaizeApp()
   }
+ 
 
   render() {
     if(!this.props.initialaized) return <Preloader />
@@ -35,11 +36,13 @@ class App extends React.Component {
         
         <HeaderContainer />
         <Switch>
+        <Route exact path='/' render={()=> <Redirect to='/Profile' /> } ></Route>
           <Route path='/Main' render={withSuspense(MainContainer  )}></Route>
           <Route path='/Massage' render={ withSuspense(MassageContainer )}></Route>
           <Route path='/Profile/:userId?' render={withSuspense(ProfileConteiner  )} ></Route>
           <Route path='/Users' render={() => <UsersContainer />}></Route>
           <Route path='/Login' render={() => <Login />}></Route>
+          <Route path='*' render={() => <div><h1>404 NOT FOUND</h1></div>}></Route>
           </Switch>
         </div>
     );

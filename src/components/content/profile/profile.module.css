@@ -38,3 +38,14 @@
   display: flex;
   justify-content: space-evenly;
 }
+.userAva{
+  width: 150px;
+}
+.contact{
+  padding-left: 20px;
+}
+.formSummuryError{
+  border: 2px solid red;
+  padding: 5px;
+  color: red;
+}
