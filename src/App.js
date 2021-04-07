@@ -9,9 +9,9 @@ import { connect } from 'react-redux'
 import Preloader from './common/preloader/Preloader';
 import { compose } from 'redux';
 import store from './redux/Redux_store'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import {withSuspense} from './HOC/withSuspense'
+import { withSuspense } from './HOC/withSuspense';
 
 
 // import MassageContainer from './components/content/massage/Massage_Container';
