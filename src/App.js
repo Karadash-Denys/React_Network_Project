@@ -25,7 +25,7 @@ class App extends React.Component {
  
   componentDidMount() {
     this.props.initialaizeApp()
-  }
+  };
  
 
   render() {

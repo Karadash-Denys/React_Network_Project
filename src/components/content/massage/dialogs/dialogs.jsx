@@ -7,7 +7,7 @@ const Dialogs = (props) => {
     <div className={s.dialogs}>
       <div className={s.user}>
         <NavLink
-          to={"/src/components/content/massage/massage.jsx/dialogs/" + props.id}
+          to={`/Massage/${props.id}`}
         >
           {props.name}
         </NavLink>
