@@ -1,25 +1,44 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from "react"
+import { connect } from "react-redux"
 import {
   follow,
   unFollow,
-  setCurrentPage,
-  setTotalUsersCount,
-  toggleIsFetching,
   getUsers,
-} from "../../../redux/Users_Reducer";
-import Users from "./Users";
-import Preloader from "../../../common/preloader/Preloader";
+} from "../../../redux/Users_Reducer"
+import Users from "./Users"
+import Preloader from "../../../common/preloader/Preloader"
 import { compose } from "redux";
 import {getUsersObjSuperSelector,getPageSize,getTotalUsersCount,getCurrentPage,getIsFetching,getFollowingInProgress} from '../../../redux/Users_Selector'
+import { UserType } from "../../../types/types"
+import { AppStateType } from "../../../redux/Redux_store"
 
-class UsersClassComponent extends React.Component {
+
+type MapStatePropsType = {
+  currentPage: number
+  pageSize: number
+  isFetching: boolean
+  totalUsersCount: number
+  users: Array<UserType>
+  followingInProgress: Array<number>
+
+}
+type MapDispatchPropsType = {
+  getUsers: (currentPage: number, pageSize: number) => void
+  unFollow: (userId:number) => void
+  follow: (userId:number) => void
+}
+type OwnPropsType = {
+  pageTitle: string
+}
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+class UsersClassComponent extends React.Component <PropsType> {
   componentDidMount() {
     const {currentPage,pageSize} =this.props
     this.props.getUsers(currentPage,pageSize)
   }
 
-  onPageChanged = (pageNumber) => {
+  onPageChanged = (pageNumber:number) => {
     const {pageSize} =this.props
     this.props.getUsers(pageNumber,pageSize)
   };
@@ -27,6 +46,7 @@ class UsersClassComponent extends React.Component {
   render() {
     return (
       <>
+        <h3>{this.props.pageTitle}</h3>
         {this.props.isFetching ? <Preloader /> : null}
 
         <Users
@@ -46,7 +66,7 @@ class UsersClassComponent extends React.Component {
 
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     users: getUsersObjSuperSelector(state),
     pageSize: getPageSize(state),
@@ -58,13 +78,6 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    getUsers,
-  }),
+  connect<MapStatePropsType,MapDispatchPropsType,OwnPropsType,AppStateType>(mapStateToProps, {follow,unFollow,getUsers,}),
 )(UsersClassComponent)
 

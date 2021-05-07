@@ -14,13 +14,13 @@ const Header = (props) => {
             : <NavLink to={'/Login'} >Login</NavLink>}
         </div>
         <div className="logo">
-          <a href="#">
+          <NavLink to='/Profile'>
             <img
               className={s.logo}
               src="https://www.instagram.com/static/images/ico/favicon-200.png/ab6eff595bb1.png"
               alt="logo"
             />
-          </a>
+          </NavLink>
         </div>
         <nav>
           <ul className={s.nav1}>

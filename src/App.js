@@ -40,7 +40,7 @@ class App extends React.Component {
           <Route path='/Main' render={withSuspense(MainContainer  )}></Route>
           <Route path='/Massage' render={ withSuspense(MassageContainer )}></Route>
           <Route path='/Profile/:userId?' render={withSuspense(ProfileConteiner  )} ></Route>
-          <Route path='/Users' render={() => <UsersContainer />}></Route>
+          <Route path='/Users' render={() => <UsersContainer pageTitle={'Samurai'} />}></Route>
           <Route path='/Login' render={() => <Login />}></Route>
           <Route path='*' render={() => <div><h1>404 NOT FOUND</h1></div>}></Route>
           </Switch>

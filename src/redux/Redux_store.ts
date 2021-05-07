@@ -19,8 +19,11 @@ let redusers = combineReducers({
     app:appReduser
 })
 
- const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
- const store = createStore(redusers,  composeEnhancers(applyMiddleware(thunk)));
+type RedusersType = typeof redusers
+export type AppStateType = ReturnType<RedusersType>
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(redusers,  composeEnhancers(applyMiddleware(thunk)));
 
 // let store = createStore(redusers,applyMiddleware(thunk)) // Две строки выше заменили создание, для расширения
 

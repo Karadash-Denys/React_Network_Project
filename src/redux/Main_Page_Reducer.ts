@@ -30,7 +30,7 @@ let initionalMainPage ={
   }
 
 
-const main_page_reduser = (state = initionalMainPage, action) => {
+const main_page_reduser = (state = initionalMainPage, action:any) => {
 
   let stateCopy = {...state,}
   
@@ -53,7 +53,7 @@ const main_page_reduser = (state = initionalMainPage, action) => {
 
 }
 
-export const textAreaOnChange = (text) => ({ type: UPPDATE_NEW_POST_TEXT, text: text })
+export const textAreaOnChange = (text:string) => ({ type: UPPDATE_NEW_POST_TEXT, text: text })
 export const addPost = () => ({ type: ADD_COMMENT })
 
 

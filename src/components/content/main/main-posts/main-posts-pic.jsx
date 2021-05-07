@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./main-posts-pic.module.css";
+import style from "./main-posts-pic.module.css";
 import AllComents from './main_post_allComents'
 
 
@@ -33,20 +33,20 @@ const MainPostsPic = (props) => {
 
 
   return (
-    <div className={s.pic}>
-      <div className={s.container}>
-        <div className={s.ava}>
-          <img className={s.img} src={props.avaSrc} alt="ava" />
+    <div className={style.pic}>
+      <div className={style.container}>
+        <div className={style.ava}>
+          <img className={style.img} src={props.avaSrc} alt="ava" />
           <p>{props.name}</p>
         </div>
-        <div className={s.photo}>
-          <img src={props.photoSrc} alt="picture" />
+        <div className={style.photo}>
+          <img src={props.photoSrc} alt="pict" />
         </div>
-        <div className={s.comment}>
+        <div className={style.comment}>
           {showComments}
 
         </div>
-        <div className={s.newComment}>
+        <div className={style.newComment}>
           <textarea
             placeholder="New Comment"
             cols="163"

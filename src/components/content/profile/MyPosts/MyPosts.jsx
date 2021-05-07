@@ -1,6 +1,5 @@
 import React from "react";
 import Posts from "./Posts.jsx";
-import s from "../profile.module.css";
 import AddNewPostsFormRedux from './Posts_Form'
 
 
