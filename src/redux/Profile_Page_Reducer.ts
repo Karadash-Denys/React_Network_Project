@@ -1,6 +1,6 @@
 import { profileAPI } from '../api/api'
 import { stopSubmit } from 'redux-form'
-import { PostsType,ProfileType,PhotosType } from '../types/types'
+import { PostsType, ProfileType, PhotosType } from '../types/types'
 
 
 
