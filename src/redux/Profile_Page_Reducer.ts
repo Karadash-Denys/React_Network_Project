@@ -1,6 +1,9 @@
-import { profileAPI } from '../api/api'
+
 import { stopSubmit } from 'redux-form'
+import { ResulCodesEnum } from '../api/api'
+import { profileAPI } from '../api/profile_api'
 import { PostsType, ProfileType, PhotosType } from '../types/types'
+import { InferActionsType, ThunkType } from './Redux_store'
 
 
 
@@ -27,8 +30,9 @@ const initialState = {
 }
 
 export type InitialStateType = typeof initialState
+type ActionsType = InferActionsType<typeof actions>
 
-const profileReduser = (state = initialState, action:any):InitialStateType => {
+const profileReduser = (state = initialState, action:ActionsType):InitialStateType => {
     
     switch (action.type) {
         case ADD_POST:
@@ -60,58 +64,51 @@ const profileReduser = (state = initialState, action:any):InitialStateType => {
 }
 
 
-type AddPostActionType = {
-    type: typeof ADD_POST,
-    body:string
+export const actions = {
+    addPost: (body: string) => ({ type: ADD_POST, body }as const),
+    setUserProfileNew: (profile: ProfileType) => ({ type: SET_USER_PROFILE, profile } as const),
+    setUserStatus: (status: string) => ({ type: SET_STATUS, status } as const),
+    setPhotoSucces: (img:PhotosType) => ({ type: SAVE_PHOTO_SUCCESS, img } as const)
 }
-type SetUserProfileNewActionType = {
-    type: typeof SET_USER_PROFILE,
-    profile:ProfileType
-}
-type SetUserStatusActionType = {
-    type: typeof SET_STATUS,
-    status:string
-}
-type SetPhotoSuccesActionType = {
-    type: typeof SAVE_PHOTO_SUCCESS,
-    img: PhotosType
-}
-export const addPost =(body:string): AddPostActionType =>({type:ADD_POST,body})
-export const setUserProfileNew = (profile:ProfileType): SetUserProfileNewActionType => ({ type: SET_USER_PROFILE, profile });
-export const setUserStatus = (status:string): SetUserStatusActionType => ({ type: SET_STATUS, status });
-export const setPhotoSucces = (img:PhotosType): SetPhotoSuccesActionType => ({ type: SAVE_PHOTO_SUCCESS, img });
 
-export const getUserProfile = (userId: number) => async (dispatch: any) => {
+
+
+export const getUserProfile = (userId: number): ThunkType<ActionsType> => async (dispatch) => {
     try {
         const response = await profileAPI.getUserProfile(userId)
-        dispatch(setUserProfileNew(response.data));
+        dispatch(actions.setUserProfileNew(response.data));
     } catch(error) {
       console.log(error.message);
     }
 }
     
-export const getStatus = (userId: number) => async(dispatch: any) => {
+export const getStatus = (userId: number ):ThunkType<ActionsType> => async(dispatch) => {
     const data = await profileAPI.getStatus(userId)
-        dispatch(setUserStatus(data))
+        dispatch(actions.setUserStatus(data))
 }
 
-export const updateStatus = (status: string) =>async (dispatch: any) => {
+export const updateStatus = (status: string):ThunkType<ActionsType> =>async (dispatch) => {
     const response = await profileAPI.updateStatus(status)
             if (response.data.resultCode === 0) {
-                dispatch(setUserStatus(JSON.parse(response.config.data).status))
+                dispatch(actions.setUserStatus(JSON.parse(response.config.data).status))
             }
 }
-export const savePhoto = (file:any) =>async (dispatch: any) => {
+export const savePhoto = (file:File):ThunkType<ActionsType> =>async (dispatch) => {
     const response = await profileAPI.setPhoto(file)
-            if (response.data.resultCode === 0) {
-                dispatch(setPhotoSucces(response.data.data.photos))
+            if (response.resultCode === ResulCodesEnum.Success) {
+                dispatch(actions.setPhotoSucces(response.data.photos))
             }
 }
-export const saveProfile = (profile:ProfileType) => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile:ProfileType):ThunkType<ActionsType | ReturnType<typeof stopSubmit> > => async (dispatch, getState) => {
     const userId = getState().auth.userId
     const response = await profileAPI.setProfile(profile)
-            if (response.data.resultCode === 0) {
-                dispatch(getUserProfile(userId))
+    if (response.data.resultCode === 0) {
+                if (userId !==null) {
+                    dispatch(getUserProfile(userId))
+                } else {
+                    throw new Error("Yser id Can not be null");
+                    
+                }
             } else {
                 dispatch(stopSubmit('editProfile', { _error: response.data.messages[0] }))
                 return Promise.reject(response.data.messages[0] )

@@ -1,3 +1,4 @@
+import { InferActionsType } from "./Redux_store"
 
 const ADD_MASSAGE = 'ADD_MASSAGE'
 
@@ -29,8 +30,9 @@ let initialMassagePage = {
 
 
 export type InitialStateType = typeof initialMassagePage
+type ActionType = InferActionsType<typeof actions>
 
-const massage_page_reduser = (state = initialMassagePage, action:any): InitialStateType => {
+const massage_page_reduser = (state = initialMassagePage, action:ActionType): InitialStateType => {
 
 
     switch (action.type) {
@@ -48,10 +50,9 @@ const massage_page_reduser = (state = initialMassagePage, action:any): InitialSt
     }
 }
 
-type SendMsgActionType = {
-  type: typeof ADD_MASSAGE
-  text: string
+export const actions = {
+  sendMsg: (text:string) => ({ type: ADD_MASSAGE,text } as const)
 }
-export const sendMsg = (text:string):SendMsgActionType => ({ type: ADD_MASSAGE,text })
+
 
 export default massage_page_reduser

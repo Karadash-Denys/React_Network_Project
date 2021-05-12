@@ -1,5 +1,6 @@
 
 import { setAuthUser } from './Auth_Reduser'
+import { InferActionsType,ThunkType } from './Redux_store'
 
 
 
@@ -8,20 +9,19 @@ import { setAuthUser } from './Auth_Reduser'
 const SET_INITIALAIZED = 'SET_INITIALAIZED'
 
 
-export type InitialStateType = {
-    initialaized: boolean
-}
 
-const initialState: InitialStateType = {
+
+const initialState = {
     initialaized: false
 }
 
+export type InitialStateType = typeof initialState
+type ActionsType = InferActionsType< typeof actions>
 
 
-const appReduser = (state = initialState, action:any):InitialStateType => {
+const appReduser = (state = initialState, action:ActionsType):InitialStateType => {
     switch (action.type) {
         case SET_INITIALAIZED:
-
             return {
                 ...state,
                 initialaized: true
@@ -35,17 +35,19 @@ const appReduser = (state = initialState, action:any):InitialStateType => {
 }
 
 
-type initialaizedSuccessActionType = {
-    type: typeof SET_INITIALAIZED //'SET_INITIALAIZED' it means the same
+export const actions = {
+    initialaizedSuccess: () => ({ type: SET_INITIALAIZED } as const)
 }
 
-export const initialaizedSuccess = ():initialaizedSuccessActionType => ({ type: SET_INITIALAIZED });
 
-export const initialaizeApp = () => (dispatch:any) => {
+
+
+
+export const initialaizeApp = ():ThunkType<ActionsType,void> => (dispatch,getState) => {
     const promise = dispatch(setAuthUser())
     Promise.all([promise])
         .then(() => {
-        dispatch(initialaizedSuccess())
+        dispatch(actions.initialaizedSuccess())
     }) 
 }
 
