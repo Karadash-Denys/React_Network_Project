@@ -2,7 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./header.module.css";
 
-const Header = (props) => {
+
+type PropsType = {
+  isAuth: boolean
+  login: string | null
+  logout:()=>void
+}
+
+const Header:React.FC<PropsType> = (props) => {
 
 
   return (
@@ -24,9 +31,6 @@ const Header = (props) => {
         </div>
         <nav>
           <ul className={s.nav1}>
-            <li className={s.nav}>
-              <NavLink to="/Main">Main</NavLink>
-            </li>
             <li className={s.nav}>
               <NavLink to="/Massage">
                 Massage

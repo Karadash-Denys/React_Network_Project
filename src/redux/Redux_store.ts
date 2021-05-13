@@ -1,6 +1,5 @@
 import { combineReducers, createStore,applyMiddleware,compose, Action  } from 'redux'
 import authReduser from './Auth_Reduser'
-import main_page_reduser from './Main_Page_Reducer'
 import massage_page_reduser from './Massage_Page_Reduser'
 import profileReduser from './Profile_Page_Reducer'
 import user_page_reduser from './Users_Reducer'
@@ -10,7 +9,6 @@ import appReduser from './App_Reduser'
 
 
 let redusers = combineReducers({
-    mainPage:main_page_reduser,
     massagePage: massage_page_reduser,
     usersPage: user_page_reduser,
     profilePage: profileReduser,
@@ -23,8 +21,7 @@ type RedusersType = typeof redusers
 export type AppStateType = ReturnType<RedusersType>
 
 
-type PropertiesType<T> = T extends {[key:string]: infer U} ? U : never
-export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>//типизация actions
+export type InferActionsType<T> = T extends { [key: string]: (...args: any[]) => infer U }? U : never  //типизация actions
 
 export type ThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>//типизация thunkCreator
 

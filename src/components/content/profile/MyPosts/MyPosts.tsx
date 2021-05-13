@@ -1,13 +1,22 @@
 import React from "react";
-import Posts from "./Posts.jsx";
+import Posts from "./Posts";
 import AddNewPostsFormRedux from './Posts_Form'
+import { PostDataType } from "./Posts_Form"
+import {PostsType} from '../../../../types/types'
 
 
-const MyPosts = (props) => {
+export type MapPropsType = {
+  posts: Array<PostsType>
+}
+export type DispatchPropsType = {
+  addPost: (text: string)=>void
+}
+
+const MyPosts:React.FC<MapPropsType & DispatchPropsType> = (props) => {
   
 
 
-  const onClickPost = (formData) => {
+  const onClickPost = (formData:PostDataType) => {
     props.addPost(formData.newPostText);
     };
     

@@ -2,11 +2,18 @@ import React from "react";
 import MassageUser from "./massage-user/massage-user";
 import s from "./massage.module.css";
 import Dialogs from "./dialogs/dialogs";
-import AddMessageReduxForm from './Massage_Form'
+import AddMessageReduxForm, { FormDataType } from './Massage_Form'
+import { DialogsDataType, MassageDataType } from "../../../redux/Massage_Page_Reduser";
+
+type PropsType = {
+  dialogsData: Array<DialogsDataType>
+  massageData: Array<MassageDataType>
+  sendMsg:(message:string)=>void
+}
 
 
 
-const Massage = (props) => {
+const Massage: React.FC<PropsType> = (props) => {
   
  
   let dialogElements = props.dialogsData.map((dialog) => (
@@ -17,7 +24,7 @@ const Massage = (props) => {
   ));
 
 
-  let send_Msg = (formData) => {
+  let send_Msg = (formData:FormDataType) => {
     props.sendMsg(formData.newMessageBody);
 
   };
@@ -35,5 +42,7 @@ const Massage = (props) => {
     </div>
   );
 };
+
+
 
 export default Massage;

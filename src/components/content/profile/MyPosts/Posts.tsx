@@ -2,10 +2,13 @@ import React from 'react'
 import s from "../profile.module.css";
 
 
+type PropsType = {
+    message: string
+    likesCount: number
+}
 
-
-const Posts = props => {
-    // console.log(props);
+const Posts:React.FC<PropsType> = props => {
+   
 
 
 

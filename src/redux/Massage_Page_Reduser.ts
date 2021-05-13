@@ -2,11 +2,11 @@ import { InferActionsType } from "./Redux_store"
 
 const ADD_MASSAGE = 'ADD_MASSAGE'
 
-type DialogsDataType = {
+export type DialogsDataType = {
   id: number
   name: string
 } 
-type MassageDataType = {
+export type MassageDataType = {
   id: number
   massage: string
 } 

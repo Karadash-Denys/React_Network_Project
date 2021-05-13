@@ -5,28 +5,22 @@ import Massage from "./massage";
 import { connect } from "react-redux";
 import {withAuthRedirect} from '../../../HOC/withAuthRedirect'
 import { compose } from "redux";
+import { AppStateType } from "../../../redux/Redux_store";
 
 
 
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
-    newMassageText: state.massagePage.newMassageText,
     dialogsData: state.massagePage.dialogsData,
     massageData: state.massagePage.massageData,
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sendMsg: (text) => {
-      dispatch(actions.sendMsg(text))
-    }
-  }
-}
 
-export default compose(
-  connect(mapStateToProps,mapDispatchToProps),
+
+export default compose<React.ComponentType>(
+  connect(mapStateToProps,{sendMsg: actions.sendMsg}),
   withAuthRedirect
 ) (Massage)
 
