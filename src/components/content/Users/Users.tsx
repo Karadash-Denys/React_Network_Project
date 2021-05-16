@@ -2,25 +2,16 @@ import React, { useEffect } from "react";
 import s from "./user.module.css";
 import Paginator from "../../../common/Paginator/Paginator";
 import User from "./User";
-// import { UserType } from "../../../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsersFilter, getUsersObjSuperSelector } from "../../../redux/Users_Selector";
 import { getUsers, unFollow,follow } from "../../../redux/Users_Reducer";
+import { useHistory } from "react-router";
 
 
-type Props = {
-  // totalUsersCount: number
-  // pageSize: number
-  // users: Array<UserType>
-  // followingInProgress: Array<number>
-  // unFollow: (userId:number) => void
-  // follow: (userId:number) => void
-  // onPageChanged: (pageNumber:number) => void
-  // currentPage: number
-}
 
 
-const Users: React.FC<Props> = () => {
+
+const Users: React.FC = () => {
 
   const totalUsersCount = useSelector(getTotalUsersCount)
   const currentPage = useSelector(getCurrentPage)
@@ -31,7 +22,7 @@ const Users: React.FC<Props> = () => {
 
 
 
-
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const onPageChanged = (pageNumber: number) => {
@@ -43,9 +34,27 @@ const Users: React.FC<Props> = () => {
   const unFolow = (id: number) => {
     dispatch(unFollow(id))
   }
+
+
+
+  useEffect(() => { 
+    const params = new URLSearchParams(history.location.search)
+    let actualPage = currentPage
+    let actualFilter = filter
+
+    if(!!params.get('term')) actualFilter={...actualFilter,term:params.get('term') as string}
+    if(!!params.get('page')) actualPage = Number(params.get('page'))
+    if(!!params.get('friend')) actualFilter = {...actualFilter,friend:params.get('friend') === 'null'? null:params.get('friend')==='true'?true:false}
+    
+    dispatch(getUsers(actualPage, pageSize, actualFilter))
+  }, [])
+
   useEffect(() => {
-    dispatch(getUsers(currentPage, pageSize, filter))
-  },[currentPage, pageSize, filter,dispatch])
+    history.push({
+      pathname: '/Users',
+      search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+    })
+  },[filter,currentPage]) 
 
 
 

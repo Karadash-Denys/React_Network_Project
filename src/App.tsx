@@ -12,12 +12,13 @@ import store, { AppStateType } from './redux/Redux_store'
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { withSuspense } from './HOC/withSuspense';
+import ProfilePage from './components/content/profile/ProfileContainer';
 
 
 // import ProfileConteiner from './components/content/profile/ProfileContainer';
 // import MainContainer from './components/content/main/Main_Container';
 const MassageContainer = React.lazy(() => import('./components/content/massage/Massage_Container'));
-const ProfileConteiner = React.lazy(() => import('./components/content/profile/ProfileContainer'));
+const ProfileConteiner = React.lazy(() => import('./components/content/profile/ProfileContainerClass'));
 
 type MapPropsType = ReturnType< typeof mapStateToProps >
 type DispatchPropsType = {
@@ -44,7 +45,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         <Switch>
         <Route exact path='/' render={()=> <Redirect to='/Profile' /> } ></Route>
           <Route path='/Massage' render={()=><SuspendedMassageContainer/> }></Route>
-          <Route path='/Profile/:userId?' render={()=><SuspendedProfileConteiner/>} ></Route>
+          {/* <Route path='/Profile/:userId?' render={()=><SuspendedProfileConteiner/>} ></Route> */}
+          <Route path='/Profile/:userId?' render={()=><ProfilePage />} ></Route>
           <Route path='/Users' render={() => <UsersContainer pageTitle={'Samurai'} />}></Route>
           <Route path='/Login' render={() => <Login />}></Route>
           <Route path='*' render={() => <div><h1>404 NOT FOUND</h1></div>}></Route>
