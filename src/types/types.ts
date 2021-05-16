@@ -1,4 +1,3 @@
-
 export type PostsType = {
     id: number
     message: string
@@ -21,19 +20,19 @@ export type PhotosType = {
 }
 
 export type ProfileType = {
-    userId: number 
+    userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts:  ContactsType
+    contacts: ContactsType
     photos: PhotosType
     aboutMe: string | null
     status: string | null
 }
 export type UserType = {
     name: string
-      id:number
-      photos:PhotosType
-      status: null | string,
-      followed: boolean
-  }
+    id: number
+    photos: PhotosType
+    status: null | string
+    followed: boolean
+}

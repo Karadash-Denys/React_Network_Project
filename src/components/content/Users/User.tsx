@@ -16,10 +16,6 @@ type PropsType = {
 const User:React.FC<PropsType> = ({user,followingInProgress,unFollow,follow}) => {
 
     return (
-     
-      
-       
-        
           <div  className={s.user}>
             <span>
               <div>
@@ -58,8 +54,6 @@ const User:React.FC<PropsType> = ({user,followingInProgress,unFollow,follow}) =>
               </span>
             </span>
           </div>
-        
-     
     )
 }
 
