@@ -32,7 +32,6 @@ const ProfilePage: React.FC = () => {
     }
     let userId: number | null = +params.userId
     const refreshProfile = () => {
-        debugger
         if (!userId) {
             userId = authorizedUserId
         }

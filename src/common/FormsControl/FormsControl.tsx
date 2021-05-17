@@ -42,7 +42,7 @@ export function createField<FormKeysType extends string>(placeholder: string | u
     validate: Array<FieldValidatorType>,
     component: React.FC<WrappedFieldProps>,
     props = {}, text = '') {
-    return <div>
+    return <div className={style.formItem} >
         <Field
             placeholder={placeholder}
             name={name}

@@ -2,7 +2,6 @@
 .users_block{
     display: flex;
     flex-direction: column;
-    background-color: rgb(225, 105, 255);
     max-width: 1200px;
     margin: 20px auto;
 }
