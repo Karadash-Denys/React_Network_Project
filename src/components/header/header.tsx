@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { NavLink, useParams, useRouteMatch } from "react-router-dom";
-import s from "./header.module.css";
-import { Layout, Menu, Breadcrumb, Row, Col, Button } from 'antd';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Layout, Menu, Row, Col, Button } from 'antd';
 import "antd/dist/antd.css"
-import { Avatar, Image } from 'antd';
+import { Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../redux/Redux_store";
@@ -28,7 +27,7 @@ const Header: React.FC = (props) => {
   
   
 
-  const { Header, Content, Footer } = Layout;
+  const { Header } = Layout;
   return (
 
     <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>

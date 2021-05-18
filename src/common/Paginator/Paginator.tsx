@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import style from "./Paginator.module.css";
 import cn from 'classnames'
-import { Button, Pagination } from 'antd';
-import { log } from "console";
+import { Button } from 'antd';
 
 
 type Props = {
@@ -15,9 +14,6 @@ type Props = {
 
 
 const Paginator: React.FC<Props> = ({totalUsersCount,pageSize,onPageChanged,currentPage,portionSize=10}) => {
-    console.log(totalUsersCount  ,' : totalUsersCount');
-    console.log(pageSize, ' : pageSize');
-    console.log(currentPage, ' : currentPage');
  
     
 
@@ -32,7 +28,6 @@ const Paginator: React.FC<Props> = ({totalUsersCount,pageSize,onPageChanged,curr
   const [portionNumber, setPortionNumber] = useState<number>(1)
   const LeftPortionPageNumber = (portionNumber - 1) * portionSize + 1
   const rightPortionPageNumber = portionNumber * portionSize
-  console.log(portionNumber, ' : portionNumber');
   return (
     
     <div className={style.paginator} >

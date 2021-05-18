@@ -1,7 +1,7 @@
 import React from "react"
 import "./App.css"
 import "antd/dist/antd.css"
-import { Redirect, Route, Switch,withRouter } from "react-router-dom"
+import { NavLink, Redirect, Route, Switch,withRouter } from "react-router-dom"
 import UsersContainer from "./components/content/Users/Users_Container"
 import Login from "./components/Login/Login"
 import { initialaizeApp } from "./redux/App_Reduser"
@@ -13,16 +13,18 @@ import { Provider } from "react-redux"
 import { BrowserRouter } from "react-router-dom"
 import { withSuspense } from "./HOC/withSuspense"
 import ProfilePage from "./components/content/profile/ProfileContainer"
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 import Header from "./components/header/header"
+// import { ChatPage } from "./components/content/chat/ChatPage"
 
 // import ProfileConteiner from './components/content/profile/ProfileContainer';
 // import MainContainer from './components/content/main/Main_Container';
 const MassageContainer = React.lazy(
     () => import("./components/content/massage/Massage_Container")
 )
-const ProfileConteiner = React.lazy(
-    () => import("./components/content/profile/ProfileContainerClass")
+
+const ChatPage = React.lazy(
+    () => import("./components/content/chat/ChatPage")
 )
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -31,7 +33,7 @@ type DispatchPropsType = {
 }
 
 const SuspendedMassageContainer = withSuspense(MassageContainer)
-const SuspendedProfileConteiner = withSuspense(ProfileConteiner)
+const SuspendedChatPage= withSuspense(ChatPage)
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
     componentDidMount() {
@@ -50,7 +52,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            <Breadcrumb.Item><NavLink to='/Chat' >Chat</NavLink></Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
           <Switch>
@@ -72,6 +74,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         render={() => <UsersContainer pageTitle={"Samurai"} />}
                     ></Route>
                     <Route path="/Login" render={() => <Login />}></Route>
+                    <Route path="/Chat" render={() => <SuspendedChatPage />}></Route>
                     <Route
                         path="*"
                         render={() => (

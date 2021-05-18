@@ -1,5 +1,4 @@
 import React from "react";
-import s from "./user.module.css";
 import userPhoto from "../../../assets/imeges/users.png";
 import { NavLink } from "react-router-dom";
 import { UserType } from "../../../types/types";
