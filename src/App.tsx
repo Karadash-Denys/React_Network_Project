@@ -1,7 +1,7 @@
 import React from "react"
 import "./App.css"
 import "antd/dist/antd.css"
-import { NavLink, Redirect, Route, Switch,withRouter } from "react-router-dom"
+import {  Redirect, Route, Switch,withRouter } from "react-router-dom"
 import UsersContainer from "./components/content/Users/Users_Container"
 import Login from "./components/Login/Login"
 import { initialaizeApp } from "./redux/App_Reduser"
@@ -13,15 +13,12 @@ import { Provider } from "react-redux"
 import { BrowserRouter } from "react-router-dom"
 import { withSuspense } from "./HOC/withSuspense"
 import ProfilePage from "./components/content/profile/ProfileContainer"
-import { Layout, Breadcrumb } from 'antd';
+import { Layout} from 'antd';
 import Header from "./components/header/header"
 // import { ChatPage } from "./components/content/chat/ChatPage"
 
 // import ProfileConteiner from './components/content/profile/ProfileContainer';
-// import MainContainer from './components/content/main/Main_Container';
-const MassageContainer = React.lazy(
-    () => import("./components/content/massage/Massage_Container")
-)
+
 
 const ChatPage = React.lazy(
     () => import("./components/content/chat/ChatPage")
@@ -32,7 +29,7 @@ type DispatchPropsType = {
     initialaizeApp: () => void
 }
 
-const SuspendedMassageContainer = withSuspense(MassageContainer)
+
 const SuspendedChatPage= withSuspense(ChatPage)
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
@@ -49,21 +46,12 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 
           <Header />
         <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item><NavLink to='/Chat' >Chat</NavLink></Breadcrumb.Item>
-          </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
           <Switch>
                     <Route
                         exact
                         path="/"
                         render={() => <Redirect to="/Profile" />}
-                    ></Route>
-                    <Route
-                        path="/Massage"
-                        render={() => <SuspendedMassageContainer />}
                     ></Route>
                     <Route
                         path="/Profile/:userId?"

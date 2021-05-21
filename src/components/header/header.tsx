@@ -34,7 +34,7 @@ const Header: React.FC = (props) => {
       <Row>
         <Col span={16} >
         <Menu theme="dark" mode="horizontal" >
-            <Menu.Item key="1"> <NavLink to="/Massage"> Massage </NavLink></Menu.Item>
+            <Menu.Item key="1"> <NavLink to="/Chat"> Chat </NavLink></Menu.Item>
             <Menu.Item key="2"><NavLink to="/Profile">Profile</NavLink></Menu.Item>
         <Menu.Item key="3"><NavLink to="/Users">Developers</NavLink></Menu.Item>
       </Menu>

@@ -1,6 +1,5 @@
 import { combineReducers, createStore,applyMiddleware,compose, Action  } from 'redux'
 import authReduser from './Auth_Reduser'
-import massage_page_reduser from './Massage_Page_Reduser'
 import profileReduser from './Profile_Page_Reducer'
 import user_page_reduser from './Users_Reducer'
 import thunk, { ThunkAction } from 'redux-thunk'
@@ -10,7 +9,6 @@ import chatReduser from './Chat_Reduser'
 
 
 let redusers = combineReducers({
-    massagePage: massage_page_reduser,
     usersPage: user_page_reduser,
     profilePage: profileReduser,
     auth: authReduser,

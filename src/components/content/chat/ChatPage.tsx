@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { ChatMessageType } from "../../../api/chat_api"
 import { sendMessageTh, startMessagesListening, stopMessagesListening } from "../../../redux/Chat_Reduser"
@@ -37,14 +37,34 @@ const Chat: React.FC = () => {
 
 const Messages: React.FC = () => {
     
-    const messages = useSelector((state:AppStateType)=>state.chat.messages)
+    
+    const messages = useSelector((state: AppStateType) => state.chat.messages)
+    const messagesAnchorRef = useRef<HTMLDivElement>(null)
+    const [autoScrollIsActive, setAutoScrollIsActive] = useState(true)
+    
+    const scrollHandler = (e:React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const elem = e.currentTarget
+        if (Math.abs( elem.scrollHeight - elem.scrollTop - elem.clientHeight)<300) {
+            !autoScrollIsActive && setAutoScrollIsActive(true)
+        } else {
+            autoScrollIsActive && setAutoScrollIsActive(false)
+        }
+    }
 
+
+    useEffect(() => {
+        if (autoScrollIsActive) {
+            messagesAnchorRef.current?.scrollIntoView({behavior:'smooth'})
+        } 
+    }, [messages])
+  
 
     return (
-        <div style={{ height: "400px", overflowY: "auto" }}>
+        <div style={{ height: "400px", overflowY: "auto" }} onScroll={scrollHandler}>
             {messages.map((mes: ChatMessageType, index) => (
                 <Message key={index} message={mes} />
             ))}
+            <div ref={messagesAnchorRef} ></div>
         </div>
     )
 }
@@ -63,6 +83,7 @@ const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
 }
 const AddMessageForm: React.FC = ()=> {
     const [message, setMessaje] = useState("")
+    const status = useSelector((state:AppStateType)=>state.chat.status)
 
 
     const dispatch = useDispatch()
@@ -84,7 +105,7 @@ const AddMessageForm: React.FC = ()=> {
             </div>
             <div>
                 <button
-                    disabled={false}
+                    disabled={status !=='ready'}
                     onClick={sendMessage}
                 >
                     send
